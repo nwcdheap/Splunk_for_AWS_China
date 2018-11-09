@@ -13,7 +13,7 @@ Splunk 已经发布了2个非常重要的APPS可以帮助AWS用户管理和监�
 
 ami-064388904e0c293cc  宁夏区域有一个公有AMI，你可以在社区中找到，利用这个AMI启动，在启动EC2之前，请参考方法二先创建好一个ROLE用于给EC2授权。
 启动EC2时请注意在SECURITY GROUP要开通如下端口 8000，22，8065，8089，这些都是Splunk 需要使用的端口.
-Splunk 会自动启动，启动以后你可以访问Http://xx.xx.xx.xx:8000:8000/zh-CN/, 这里的XX.XX.XX.XX用您得到的公网IP替代. 
+Splunk 会自动启动，启动以后你可以访问Http://xx.xx.xx.xx:8000/zh-CN/, 这里的XX.XX.XX.XX用您得到的公网IP替代. 
 安装好Splunk的机器启动以后您还需要做一些配置的工作，来告诉Splunk你的AWS AK/SK,DBR 位置，SQS 队列，CloudWatch 等信息。
 1）使用user: splunk , password:　HANAabcd1234 登录到splunk 管理界面
 2）访问Splunk应用Splunk Add-on for AWS, 点击配置，删除系统里已经有的一行 AWS CHINA的账户，添加您自己的aws 账户，并起名。
