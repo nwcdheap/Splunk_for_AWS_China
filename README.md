@@ -1,4 +1,6 @@
 # Splunk_for_AWS_China
+![ad](https://rcyan.github.io/WeChat-applet/images/ad1.jpg)
+
 帮助你利用Splunk 7.20 版本管理AWS 中国宁夏区域和北京区域的资源，账单等.
 
 Splunk 已经发布了2个非常重要的APPS可以帮助AWS用户管理和监控AWS资源，由于默认安装版本上有一些配置没有及时更新AWS宁夏区域，
