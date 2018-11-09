@@ -116,7 +116,7 @@ Splunk 会自动启动，启动以后你可以访问Http://xx.xx.xx.xx:8000/zh-C
 
 2. 在AWS控制面板快速启动一台Ubuntu 16，请将EBS大小调整到20GB.并注意加载IAM ROLE，同时设置Security Group 打开端口：8000,22,8065,8069。    
 
-3. 下载Splunk到安装文件到本地并安装    
+3. 下载Splunk Enterprise安装文件到本地并安装    
 ```
 https://www.splunk.com/en_us/download/splunk-enterprise.html
 ```
@@ -132,7 +132,7 @@ cd /opt/splunk/bin
 ./splunk  enable boot-start -user root  （这句是设置重新启动机器时自动启动Splunk)
 ```
 
-4. 访问你已经安装好的splunk 并安装 splunk apps for aws 以及 splunk add-on for aws. （安装文件在github这个的splunk package 目录中，您也可以创建自己的splunk base 网站的账户，直接在线安装)   
+4. 访问你已经安装好的splunk 并安装 splunk apps for aws 以及 splunk add-on for aws. （安装文件在github的splunk package 目录中，您也可以创建自己的splunk base 网站的账户，直接在线安装)    
 
 5. 由于当前的7.20版本的SPLUNK ENTERPRISE 没有将AWS 宁夏区域配置进去，您需要手工修改下面的文件:
 ```
@@ -143,15 +143,25 @@ vi /opt/splunk/etc/apps/splunk_app_aws/lookups/regions.csv
 ```
 cn-northwest-1,NingXia,37.51,105.18,"China (NingXia)"
 ```
-
-6. 重新启动splunk    
+6，修改/opt/splunk/etc/apps/Splunk_TA_aws/bin/3rdparty/boto/endpoints.json 文件
+添加cn-northwest-1 这个配置，或者您也可以用github这个目录中的endpoints.json直接覆盖您安装好的endpoints.json文件.
+```
+     "regions": {
+        "cn-northwest-1":{
+          "description": "China (Ningxia)"
+        },
+        "cn-north-1": {
+          "description": "China (Beijing)"
+        }
+```
+7. 重新启动splunk    
 ```
 ./opt/splunk/bin/splunk restart
 ```
 
-7. 在SPLUNK应用中设置你的AK/SK 以及其他信息
+8. 在SPLUNK应用中设置你的AK/SK 以及其他信息
 访问Http://xx.xx.xx.xx:8000/zh-CN/  点击屏幕上面的应用，选择Splunk Add-on for AWS. 并设置AWS账户，以及输入源，包括billing, cloudwatch,cloudtrial, etc.   
 
 
-8. 访问splunk apps for aws.
+9. 访问splunk apps for aws.
 访问 Http://xx.xx.xx.xx:8000/zh-CN/  并使用在安装时设置的用户名和密码登录，然后点上面应用这里的，splunk apps for aws.   
