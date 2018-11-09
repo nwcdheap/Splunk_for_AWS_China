@@ -5,12 +5,13 @@ Splunk 已经发布了2个非常重要的APPS可以帮助AWS用户管理和监�
 这个Project会告诉您做如何的修改可以实现对宁夏区域的控制。
 
 你可以有2个办法来实现splunk的安装，
-第一种方法 手工下载并安装相应的Splunk Enterprise的安装文件，并配置相关参数。
-第二种方法 利用已经安装好的Splunk Enterprise Free（ 仅支持512MB日志）。
+第一种方法 利用已经安装好的Splunk Enterprise Free（仅支持512MB日志）。
+第二种方法 手工下载并安装相应的Splunk Enterprise　Free（仅支持512MB日志）的安装文件，并配置相关参数。
+
 
 方法一：直接用已经安装好的AMI
 
-ami-064388904e0c293cc  宁夏区域有一个公有AMI，你可以在社区中找到，利用这个AMI 启动，在启动EC2之前，请参考方法二先创建好一个ROLE用于给EC2授权。
+ami-064388904e0c293cc  宁夏区域有一个公有AMI，你可以在社区中找到，利用这个AMI启动，在启动EC2之前，请参考方法二先创建好一个ROLE用于给EC2授权。
 启动EC2时请注意在SECURITY GROUP要开通如下端口 8000，22，8065，8089，这些都是Splunk 需要使用的端口.
 Splunk 会自动启动，启动以后你可以访问Http://xx.xx.xx.xx:8000:8000/zh-CN/, 这里的XX.XX.XX.XX用您得到的公网IP替代. 
 安装好Splunk的机器启动以后您还需要做一些配置的工作，来告诉Splunk你的AWS AK/SK,DBR 位置，SQS 队列，CloudWatch 等信息。
@@ -101,4 +102,25 @@ Splunk 会自动启动，启动以后你可以访问Http://xx.xx.xx.xx:8000:8000
     ]
 }
 
-2)
+2) 在AWS控制面板快速启动一台Ubuntu 16， 请将EBS大小调整到20GB.
+并注意加载IAM ROLE，
+同时设置Security Group 打开端口：8000,22,8065,8069 
+
+3）下载Splunk到安装文件到本地并安装
+
+https://www.splunk.com/en_us/download/splunk-enterprise.html#
+或者直接下载 
+wget https://download.splunk.com/products/splunk/releases/7.2.0/linux/splunk-7.2.0-8c86330ac18-Linux-x86_64.tgz /tmp
+cd /tmp
+tar xvzf splunk-.tgz -C /opt
+cd /opt/splunk
+./splunk  start --accept-license  (这个过程中系统会提示输入管理员帐户和密码）
+./splunk  enable boot-start -user root  （这句胡设置重新启动机器时自动启动Splunk) 
+
+
+
+
+
+
+
+
