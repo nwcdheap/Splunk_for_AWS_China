@@ -113,12 +113,22 @@ https://www.splunk.com/en_us/download/splunk-enterprise.html#
 wget https://download.splunk.com/products/splunk/releases/7.2.0/linux/splunk-7.2.0-8c86330ac18-Linux-x86_64.tgz /tmp
 cd /tmp
 tar xvzf splunk-.tgz -C /opt
-cd /opt/splunk
+cd /opt/splunk/bin
 ./splunk  start --accept-license  (这个过程中系统会提示输入管理员帐户和密码）
-./splunk  enable boot-start -user root  （这句胡设置重新启动机器时自动启动Splunk) 
+./splunk  enable boot-start -user root  （这句是设置重新启动机器时自动启动Splunk) 
 
-
-
+4) 访问你已经安装好的splunk 并安装 splunk apps for aws 以及 splunk add-on for aws. （安装文件在github这个的splunk package 目录中，您也可以创建自己的splunk base 网站的账户，直接在线安装)
+5）由于当前的7.20版本的SPLUNK ENTERPRISE 没有将AWS 宁夏区域配置进去，您需要手工修改下面的文件
+cp /opt/splunk/etc/apps/splunk_app_aws/lookups/regions.csv /opt/splunk/etc/apps/splunk_app_aws/lookups/regions.csv.bak
+vi /opt/splunk/etc/apps/splunk_app_aws/lookups/regions.csv
+在最后一行，添加
+cn-northwest-1,NingXia,37.51,105.18,"China (NingXia)"
+6) 重新启动splunk 
+./opt/splunk/bin/splunk restart 
+7) 在SPLUNK应用中设置你的AK/SK 以及其他信息
+访问Http://xx.xx.xx.xx:8000/zh-CN/  点击屏幕上面的应用，选择Splunk Add-on for AWS. 并设置AWS账户，以及输入源，包括billing, cloudwatch,cloudtrial, etc.
+8) 访问splunk apps for aws. 
+访问 Http://xx.xx.xx.xx:8000/zh-CN/  并使用在安装时设置的用户名和密码登录，然后点上面应用这里的，splunk apps for aws.
 
 
 
